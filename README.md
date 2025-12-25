@@ -43,36 +43,38 @@ matlab -nosplash -nodesktop -r "addpath('.'); VMPS_SBM1(0,0,0.6,0.1,2,50,0); qui
 
 ## Background: the spin-boson model (SBM1/SBM2)
 
-The spin-boson family describes a two-level system (spin-1/2 with Pauli matrices `σx, σy, σz`) linearly coupled to one or more independent bosonic baths. A common continuum Hamiltonian form is:
+The spin-boson family describes a two-level system (spin-1/2 with Pauli matrices $\sigma_x,\sigma_y,\sigma_z$) linearly coupled to one or more independent bosonic baths. A common continuum Hamiltonian form is:
 
-```text
-H = H_spin + H_bath + H_coupling
-H_spin = - (hx/2) σx - (hy/2) σy - (hz/2) σz
-H_bath = ∫_0^{ωc} dω  ω  b_ω† b_ω
-H_coupling = (σi/2) ∫_0^{ωc} dω  g(ω) (b_ω + b_ω†)   ,  i ∈ {x,y,z}
-```
+$$
+\begin{aligned}
+H &= H_{\mathrm{spin}} + H_{\mathrm{bath}} + H_{\mathrm{coupling}},\\
+H_{\mathrm{spin}} &= -\frac{h_x}{2}\sigma_x - \frac{h_y}{2}\sigma_y - \frac{h_z}{2}\sigma_z,\\
+H_{\mathrm{bath}} &= \int_{0}^{\omega_c} d\omega \, \omega \, b^\dagger_\omega b_\omega,\\
+H_{\mathrm{coupling}} &= \frac{\sigma_i}{2}\int_{0}^{\omega_c} d\omega \, g(\omega)\left(b_\omega + b^\dagger_\omega\right),\qquad i\in\{x,y,z\}.
+\end{aligned}
+$$
 
-The bath is fully characterized (in the continuum limit) by its **spectral density** `J(ω)`; for power-law baths:
+The bath is fully characterized (in the continuum limit) by its **spectral density** $J(\omega)$; for power-law baths:
 
-```text
-J(ω) ∝ ω^s   (0 < ω < ωc)
-```
+$$
+J(\omega) \propto \omega^s \qquad (0 < \omega < \omega_c)
+$$
 
-- `s < 1`: **sub-ohmic**
-- `s = 1`: **ohmic**
-- `s > 1`: **super-ohmic**
+- $s < 1$: **sub-ohmic**
+- $s = 1$: **ohmic**
+- $s > 1$: **super-ohmic**
 
 **SBM1 (one bath):** one bath couples to a single spin component (commonly written as coupling to `σz` in the literature; this repo’s SBM1 implementation uses coupling to `σx`, i.e. a rotated convention).
 
 **SBM2 (two baths):** two independent baths couple to two non-commuting spin components (e.g. `σx` and `σy`). In the XY-symmetric case one typically has equal bath exponents and couplings.
 
-The OBB-VMPS method is typically used to compute **ground-state properties** across phases (delocalized vs localized, critical points), including order parameters like `⟨σ⟩`, bosonic displacements `⟨x_k⟩`, and related observables.
+The OBB-VMPS method is typically used to compute **ground-state properties** across phases (delocalized vs localized, critical points), including order parameters like $\langle\sigma\rangle$, bosonic displacements $\langle x_k\rangle$, and related observables.
 
 ## Method overview (high-level pipeline)
 
 The repo follows the standard “bath → Wilson chain → (OBB-)VMPS” pipeline:
 
-1. **Log-discretize** the bath spectral density on intervals set by Wilson parameter `Λ > 1` (optionally with a `z`-shift).
+1. **Log-discretize** the bath spectral density on intervals set by Wilson parameter $\Lambda > 1$ (optionally with a `z`-shift).
 2. Build a **discrete star Hamiltonian** with oscillator energies `ξ_m` and couplings `γ_m`.
 3. **Map star → Wilson chain** (tridiagonalization / Lanczos) to obtain on-site energies `ε_k` and hoppings `t_k`.
 4. Solve the resulting **impurity + Wilson chain** Hamiltonian variationally using an **MPS** with one-site updates (“VMPS/DMRG-style sweeps”).
@@ -91,11 +93,11 @@ VMPS_SBM1(hx, hz, s, alpha, Lambda, L, parity)
 
 Defined in `VMPS_SBM1.m`. These are the **only** parameters exposed as function arguments:
 
-- `hx`: spin field along `σx` in this repo’s convention (see `genh1h2term_onesite.m`)
-- `hz`: spin field along `σz`
+- `hx`: spin field along $\sigma_x$ in this repo’s convention (see `genh1h2term_onesite.m`)
+- `hz`: spin field along $\sigma_z$
 - `s`: bath power-law exponent used in `SBM_genpara.m`
 - `alpha`: bath coupling strength used in `SBM_genpara.m`
-- `Lambda`: Wilson discretization parameter `Λ > 1`
+- `Lambda`: Wilson discretization parameter $\Lambda > 1$
 - `L`: total number of sites in the MPS **including the impurity spin** (so there are `L-1` boson sites)
 - `parity`: integer selector:
   - `0` → `para.parity='n'` (no parity)

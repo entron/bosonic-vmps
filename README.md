@@ -9,6 +9,14 @@ This repository contains a MATLAB/Octave implementation of the **optimized-boson
 
 The core idea is to variationally compute the **ground state** of a discretized spin-boson Hamiltonian using an MPS, while controlling bosonic Hilbert-space truncation errors by (i) **optimizing a local boson basis** (OBB) on each site and (ii) optionally using an explicit **shifted oscillator basis** to capture large displacements in localized regimes.
 
+As a side note, I am now working in the AI field, and in retrospect
+the OBB idea is quite similar to a central topic in AI: representation
+learning (e.g. variational autoencoder, hidden states in LLM etc.).
+It is fascinating to see across different disciplines how simply
+changing the language used to describe things (in this case, the
+basis) can turn something intractable into something tractable, and
+make something complex appear simple.
+
 ## Quickstart
 
 **Requirements:** MATLAB or GNU Octave (no third-party toolboxes required beyond standard linear algebra and `eigs`).

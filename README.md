@@ -181,7 +181,6 @@ All MATLAB/Octave source files live in the repo root. Key pieces:
 ├── calbosonocc_SBM1.m          # compute boson occupations <n_k>
 ├── calbosonshift_SBM1.m        # compute boson displacement diagnostics (see note below)
 ├── parity*.m                   # parity-sector support (optional)
-├── 1110.6314v2.pdf             # Guo et al. preprint (reference)
 └── clean_dir                   # cleanup script (removes outputs; use with care)
 ```
 

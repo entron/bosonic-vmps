@@ -1,5 +1,10 @@
 # OBB-VMPS
 
+<p align="center">
+  <img src="1.png" style="height:220px; width:auto; max-width:49%;" />
+  <img src="2.png" style="height:220px; width:auto; max-width:49%;" />
+</p>
+
 This repository contains a MATLAB/Octave implementation of the **optimized-boson-basis variational matrix product state** method (**OBB-VMPS**) on a **Wilson chain**, as used in our paper *Critical and strong-coupling phases in one- and two-bath spin-boson models*, Phys. Rev. Lett. 108, 160401 (2012).
 
 The core idea is to variationally compute the **ground state** of a discretized spin-boson Hamiltonian using an MPS, while controlling bosonic Hilbert-space truncation errors by (i) **optimizing a local boson basis** (OBB) on each site and (ii) optionally using an explicit **shifted oscillator basis** to capture large displacements in localized regimes.
@@ -201,6 +206,3 @@ If you use this code in academic work, please cite:
   url = {https://link.aps.org/doi/10.1103/PhysRevLett.108.160401}
 }
 ```
-
-
-
